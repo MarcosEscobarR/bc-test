@@ -57,6 +57,7 @@ function Home() {
                 if (res.data) {
                     localStorage.setItem('isAuthenticated', "true")
                     window.location.href = '/welcome'
+                    return;
                 }
 
                 showErrors()
@@ -80,7 +81,7 @@ function Home() {
                 }
 
                 {
-                    errors.invalidCredentials ? <p>Usuario Incorrecto</p> : null
+                    errors.invalidCredentials ? <p>Credenciales Incorrectas</p> : null
                 }
 
                 {

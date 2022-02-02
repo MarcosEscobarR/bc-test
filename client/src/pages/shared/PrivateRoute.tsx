@@ -3,7 +3,7 @@ import React from "react";
 
 interface Props {
     component: React.ComponentType
-    path?: string
+    path?: string,
 }
 
 export const PrivateRoute: React.FC<Props> = ({ component: RouteComponent }) => {
