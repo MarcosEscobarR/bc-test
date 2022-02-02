@@ -40,17 +40,22 @@ function Home() {
         }, 3000)
     }
 
-    const validateForm = () => {
+    const invalidForm = () => {
         const err = {} as IErrors;
-        if (!formValue.email) err.emailEmpty = true;
-        if (!formValue.password) err.passwordEmpty = true;
-        if (Object.values(err).includes(true)) showErrors()
+        if (formValue.email === null || formValue.email.trim() === '') err.emailEmpty = true;
+        if (formValue.password === null || formValue.password.trim() === '') err.passwordEmpty = true;
 
-        setErrors(err)
+        if (Object.values(err).includes(true)) {
+            showErrors()
+            setErrors(err)
+            return true
+        }
+
+        return false;
     }
 
     const handleClick = async () => {
-        validateForm()
+        if (invalidForm()) return;
         if (!hasError) {
             try {
                 const res = await AuthService.login(formValue)
@@ -76,9 +81,11 @@ function Home() {
     const renderErrorMessage = () => {
         if (hasError) {
             return <div className="message-container">
-                {
-                    Object.keys(errors).map(p => createErrorsList(p as keyof IErrors, errors[p as keyof IErrors]))
-                }
+                <ul>
+                    {
+                        Object.keys(errors).map(p => createErrorsList(p as keyof IErrors, errors[p as keyof IErrors]))
+                    }
+                </ul>
 
                 {
                     errors.invalidCredentials ? <p>Credenciales Incorrectas</p> : null
