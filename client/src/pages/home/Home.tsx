@@ -37,6 +37,7 @@ function Home() {
         setHasError(true)
         setTimeout(() => {
             setHasError(false)
+            setErrors({apiError: false, invalidEmail: false, invalidCredentials: false, emailEmpty: false,passwordEmpty: false})
         }, 3000)
     }
 
